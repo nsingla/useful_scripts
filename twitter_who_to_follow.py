@@ -61,6 +61,7 @@ def follow_users(filename, start_idx, end_idx):
 			try:
 				print(str.format('Following[{}]: {}', str(idx), sname))
 				api.CreateFriendship(screen_name=sname)
+                                api.CreateMute(screen_name=sname)
 			except Exception as e:
 				print('Error: ' + str(e))
 			time.sleep((random.random() * 2) + 4)
