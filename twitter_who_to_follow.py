@@ -44,30 +44,30 @@ def get_filtered_followers(df, keywords):
 
 
 def save_followers_to_csv(target_screen_name, keywords):
-	df = get_target_followers(target_screen_name)
-	fdf = get_filtered_followers(df, keywords)
-	fdf.to_csv(target_screen_name + '_filtered_followers.csv')
-	df.to_csv(target_screen_name + '_followers.csv')
+    df = get_target_followers(target_screen_name)
+    fdf = get_filtered_followers(df, keywords)
+    fdf.to_csv(target_screen_name + '_filtered_followers.csv')
+    df.to_csv(target_screen_name + '_followers.csv')
 
 
 def follow_users(filename, start_idx, end_idx):
-	myfriends = api.GetFriendIDs()
-	data = pd.read_csv(filename)
-	for idx, row in data.iterrows():
-		sname = row['screen_name']
-		if idx < start_idx:
-			continue
-		if row['id'] not in myfriends:
-			try:
-				print(str.format('Following[{}]: {}', str(idx), sname))
-				api.CreateFriendship(screen_name=sname)
-                                api.CreateMute(screen_name=sname)
-			except Exception as e:
-				print('Error: ' + str(e))
-			time.sleep((random.random() * 2) + 4)
-		if idx > end_idx:
-			print('Done.')
-			break
+    myfriends = api.GetFriendIDs()
+    data = pd.read_csv(filename)
+    for idx, row in data.iterrows():
+        sname = row['screen_name']
+        if idx < start_idx:
+            continue
+	if row['id'] not in myfriends:
+            try:
+                print(str.format('Following[{}]: {}', str(idx), sname))
+		api.CreateFriendship(screen_name=sname)
+                api.CreateMute(screen_name=sname)
+	    except Exception as e:
+                print('Error: ' + str(e))
+            time.sleep((random.random() * 2) + 4)
+	if idx > end_idx:
+            print('Done.')
+            break
 
 
 
