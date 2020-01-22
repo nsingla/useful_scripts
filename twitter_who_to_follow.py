@@ -30,10 +30,10 @@ def filterc(x, keywords):
 	'''
 		Filters if keyword is found in location or description of the account
 	'''
-    for kw in keywords:
-        if kw in x['location'].lower() or kw in x['description'].lower():
-            return True
-    return False
+	for kw in keywords:
+		if kw in x['location'].lower() or kw in x['description'].lower():
+			return True
+	return False
 
 
 def get_filtered_followers(df, keywords):    
@@ -57,17 +57,17 @@ def follow_users(filename, start_idx, end_idx):
         sname = row['screen_name']
         if idx < start_idx:
             continue
-	if row['id'] not in myfriends:
-            try:
-                print(str.format('Following[{}]: {}', str(idx), sname))
-		api.CreateFriendship(screen_name=sname)
-                api.CreateMute(screen_name=sname)
-	    except Exception as e:
-                print('Error: ' + str(e))
-            time.sleep((random.random() * 2) + 4)
-	if idx > end_idx:
-            print('Done.')
-            break
+        if row['id'] not in myfriends:
+        	try:
+        		print(str.format('Following[{}]: {}', str(idx), sname))
+        		api.CreateFriendship(screen_name=sname)
+        		api.CreateMute(screen_name=sname)
+        	except Exception as e:
+        		print('Error: ' + str(e))
+        	time.sleep((random.random() * 2) + 4)
+        if idx > end_idx:
+        	print('Done.')
+        	break
 
 
 
